@@ -14,6 +14,14 @@ class LinenotiHandler < Sensu::Handler
         short: '-j JSONCONFIG',
         long: '--json JSONCONFIG',
         default: 'line'
+	
+	def action_to_string
+		@event['action'].eql?('resolve') ? 'RESOLVE' : 'ALERT'
+	end
+	
+	def event_name
+    @event['client']['name'] + '/' + @event['check']['name']
+	end
 
 	def get_token
 		get_setting(line_token)
@@ -30,10 +38,8 @@ class LinenotiHandler < Sensu::Handler
 		puts "something"
 		line_notify = LineNotify.new(line_token)
 		options = {
-				message: "Test",
+				message: "#{action_to_string} - #{event_name}: #{@event['check']['notification']}",
 		}
 		line_notify.send(options)
 	end
 end
-b = LinenotiHandler.new
-b.handle
