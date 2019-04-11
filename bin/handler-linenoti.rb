@@ -39,10 +39,30 @@ class LinenotiHandler < Sensu::Handler
   end
 
   def handle
+    File.open("/tmp/get_setting", "w") { |file| file.puts get_token}
     @line_notify = LineNotify.new(get_token)
     options = {
-        message: "#{action_to_string} - #{event_name}: #{@event['check']['notification']}",
+        message: "#{action_to_string} - #{event_name}: \n#{translate_status} #{@event['check']['notification']}",
     }
     @line_notify.send(options)
   end
+
+  def check_status
+    @event['check']['status']
+  end
+
+  def translate_status
+    status = {
+      0 => :OK,
+      1 => :WARNING,
+      2 => :CRITICAL,
+      3 => :UNKNOWN
+    }
+    begin
+      status.fetch(check_status.to_i)
+    rescue KeyError
+      status.fetch(3)
+    end
+  end
+
 end
