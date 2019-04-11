@@ -22,16 +22,16 @@ Gem::Specification.new do |s|
   s.platform               = Gem::Platform::RUBY
   s.post_install_message   = 'You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sensu'
   s.require_paths          = ['lib']
-  s.required_ruby_version  = '>= 2.5.0'
+  s.required_ruby_version  = '>= 2.4.0'
   s.summary                = 'Sensu plugins for handle to line notify'
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
   s.version                = SensuPluginsLineNotify::Version::VER_STRING
 
   s.add_runtime_dependency 'sensu-plugin', '~> 2.0'
-  s.add_runtime_dependency 'line_notify', '~> 1.0.0'
+  s.add_runtime_dependency 'line_notify', '~> 1.0'
 
-  s.add_development_dependency 'bundler',                   '~> 2.0.1'
-  s.add_development_dependency 'github-markup',             '~> 3.0.4'
+  s.add_development_dependency 'bundler',                   '~> 2.0'
+  s.add_development_dependency 'github-markup',             '~> 3.0'
   s.add_development_dependency 'pry',                       '~> 0.10'
   s.add_development_dependency 'rake',                      '~> 12.3'
   s.add_development_dependency 'redcarpet',                 '~> 3.2'
