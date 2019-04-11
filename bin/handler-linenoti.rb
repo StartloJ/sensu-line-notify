@@ -28,7 +28,7 @@ class LinenotiHandler < Sensu::Handler
   end
 
   def get_token
-    get_setting(line_token)
+    get_setting('line_token')
   end
 
   def get_setting(name)
