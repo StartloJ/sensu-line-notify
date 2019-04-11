@@ -29,9 +29,10 @@ class LinenotiHandler < Sensu::Handler
 
   def get_token
     get_setting(line_token)
+  end
 
   def get_setting(name)
-    setting[config[:json_config]][name]
+    settings[config[:json_config]][name]
   rescue TypeError, NoMethodError => e
     puts "settings: #{settings}"
     puts "error: #{e.message}"
@@ -39,7 +40,6 @@ class LinenotiHandler < Sensu::Handler
   end
 
   def handle
-    File.open("/tmp/get_setting", "w") { |file| file.puts get_token}
     @line_notify = LineNotify.new(get_token)
     options = {
         message: "#{action_to_string} - #{event_name}: \n#{translate_status} #{@event['check']['notification']}",
