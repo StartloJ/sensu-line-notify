@@ -42,7 +42,7 @@ class LinenotiHandler < Sensu::Handler
   def handle
     @line_notify = LineNotify.new(get_token)
     options = {
-        message: "#{action_to_string} - #{event_name}: \n#{translate_status} #{@event['check']['notification']}",
+        message: "#{action_to_string} \n#{event_name} \n#{translate_status}: #{@event['check']['notification']}\s#{@event['check']['output']}",
     }
     @line_notify.send(options)
   end
