@@ -1,0 +1,1 @@
+require 'sensu-plugins-linenoti/version'
