@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version  = '>= 2.5.0'
   s.summary                = 'Sensu plugins for handle to line notify'
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
-  s.version                = SensuPluginsLineNoti::Version::VER_STRING
+  s.version                = SensuPluginsLineNotify::Version::VER_STRING
 
   s.add_runtime_dependency 'sensu-plugin', '~> 2.0'
   s.add_runtime_dependency 'line_notify', '~> 1.0.0'

@@ -1,4 +1,4 @@
-module SensuPluginsGelf
+module SensuPluginsLineNotify
   module Version
     MAJOR = 0
     MINOR = 1
