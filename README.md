@@ -31,7 +31,7 @@ sensu/conf.d/handler/handlers-line.json
   "handlers": {
     "line": {
       "type": "pipe",
-      "command": "handler-gelf.rb --json 'gelf'",
+      "command": "handler-linenoti.rb --json 'line'",
     }
   }
 }
