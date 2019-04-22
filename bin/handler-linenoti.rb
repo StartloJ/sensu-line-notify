@@ -19,6 +19,13 @@ class LinenotiHandler < Sensu::Handler
         long: '--json JSONCONFIG',
         default: 'line'
   
+  option :enable_stk,
+        description: 'This option is define to enable feature send sticker to line_notify',
+        short: '-s',
+        long: '--enable_stk',
+        default: false,
+        boolean: true
+
   def action_to_string
     @event['action'].eql?('resolve') ? 'RESOLVE' : 'ALERT'
   end
@@ -42,13 +49,32 @@ class LinenotiHandler < Sensu::Handler
   def handle
     @line_notify = LineNotify.new(get_token)
     options = {
-        message: "#{action_to_string}!\s#{@event['check']['notification']}\nLevel: #{translate_status}\n #{event_name} \n#{@event['check']['output']}",
+      message: "#{action_to_string}!\s#{@event['check']['notification']}\nLevel: #{translate_status}\n #{event_name} \n#{@event['check']['output']}",
+      stickerPackageId: sticker_pkg_id[0]
+      stickerId: sticker_pkg_id[1]
     }
     @line_notify.send(options)
   end
 
   def check_status
     @event['check']['status']
+  end
+
+  def sticker_pkg_id
+    if enable_stk
+      case check_status
+      when 0
+        return 2,175
+      when 1
+        return 2,152
+      when 2
+        return 2,19
+      when 3
+        return 2,45
+      end
+    else
+      return nil,nil
+    end
   end
 
   def translate_status
